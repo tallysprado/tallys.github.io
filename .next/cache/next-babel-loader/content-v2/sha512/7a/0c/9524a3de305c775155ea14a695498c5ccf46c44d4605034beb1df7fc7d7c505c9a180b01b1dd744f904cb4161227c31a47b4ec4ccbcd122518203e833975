@@ -1,1 +1,0 @@
-{"ast":null,"code":"import { jsx as _jsx } from \"react/jsx-runtime\";\nexport default function Projects() {\n  return /*#__PURE__*/_jsx(\"div\", {\n    id: \"projects\",\n    children: \"s\"\n  });\n}","map":null,"metadata":{},"sourceType":"module"}
