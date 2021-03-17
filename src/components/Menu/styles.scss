@@ -21,13 +21,25 @@
   transition: opacity 300ms linear;
 }
 .links {
-  display: flex;
   position: relative;
+  z-index: 5000;
+  height: 100%;
+  display: block;
   justify-content: center;
-  width: 100%;
-  
 }
-.menu{
+.icon{
+  bottom: 0;
+  margin: 1.5em !important;
+  transition: width 0ms, height 0ms;
+  min-width: 25px;
+  min-height: 25px;
+  transition: transform 1s;
+
+}
+
+
+
+#menu{
   display: flex;
   position: relative;
   flex-direction: column;
@@ -38,6 +50,13 @@
   width: 20vw;
   position: fixed;
   left: 0;
+
+  .preview{
+    display: flex;
+    position: absolute;
+    width: 300px;
+    height: 300px;
+  }
 
   p {
     margin: auto;
@@ -111,6 +130,7 @@
       height: 100%;
       background-color: var(--background);
       z-index: -2;
+      
     }
     &:before {
       content: "";
@@ -124,7 +144,7 @@
       z-index: -1;
     }
     &:hover {
-      color: #fff;
+      color: var(--color2);
       &:before {
         width: 100%;
       }

@@ -1,7 +1,7 @@
 export default function Projects(){
     return(
         <div id='projects'>
-            s
+            <h1>OIE</h1>
         </div>
     )
 }

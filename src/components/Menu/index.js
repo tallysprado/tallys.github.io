@@ -4,12 +4,17 @@ import { useState, useEffect } from "react";
 import ScrollAnimation from "react-animate-on-scroll";
 import Jquery from "jquery";
 import $ from "jquery";
+import dynamic from "next/dynamic";
+//import ReactHover from "react-hover";
 
-import {
-  TransitionGroup,
-  Transition,
-  CSSTransition,
-} from "react-transition-group";
+const ReactTinyLink = dynamic(
+  () => import("react-tiny-link").then((mod) => mod.ReactTinyLink),
+  { ssr: false }
+);
+const ReactHover = dynamic(
+  () => import("react-hover").then((mod) => mod.ReactHover),
+  { ssr: false }
+);
 
 import {
   faWhatsapp,
@@ -43,12 +48,37 @@ const Header = (props) => {
     </>
   );
 };
-
-const Links = (props) => {
+const optionsCursorTrueWithMargin = {
+  followCursor: true,
+  shiftX: 20,
+  shiftY: 0,
+};
+const Preview = (props) => {
   return (
-    <div {...props} id='links' className="links">
+    <div {...props} className="preview">
+      <ReactTinyLink
+        cardSize="small"
+        showGraphic={true}
+        maxLine={2}
+        minLine={1}
+        url="https://github.com/tallysprado"
+      ></ReactTinyLink>
+    </div>
+  );
+};
+const Links = (props) => {
+  const [isHover, setHover] = useState(false);
+  return (
+    <div
+      {...props}
+      id="links"
+      className="links"
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
       {icons.map((icon) => (
         <FontAwesomeIcon
+          key={icon.id ? icon.id : null}
           size="2x"
           color="#f2a365"
           className="icon"
@@ -68,16 +98,30 @@ function growAnimation(document, animationPercentage) {
   const finishPositionPercent = -100; // top/left at end of animation
 
   // The current CSS values, based on how far the user has scrolled
-  const currentSizePercent = getProgressFromTo(0, finishSizePercent, animationDecimal);
-  const currentPositionPercent = getProgressFromTo(startPositionPercent, finishPositionPercent, animationDecimal);
+  const currentSizePercent = getProgressFromTo(
+    0,
+    finishSizePercent,
+    animationDecimal
+  );
+  const currentPositionPercent = getProgressFromTo(
+    startPositionPercent,
+    finishPositionPercent,
+    animationDecimal
+  );
 
-  $(document).ready(function() {
+  $(document).ready(function () {
+    $(".icon").css({
+      width: `${-currentPositionPercent - 30}px`,
+      height: `${-currentPositionPercent - 30}px`,
+      transform: `translate(0px, calc(${currentPositionPercent}px + 40vh))`,
+    });
     $(".links").css({
       zIndex: 5000,
-      top: `${currentPositionPercent+20}%`,
+      top: `${currentPositionPercent}%`,
+      width: `${currentPositionPercent + 100}%`,
+      height: `${currentPositionPercent - 100}%`,
     });
-  })
-  
+  });
 }
 
 // A util function to get the progress between two values
@@ -89,7 +133,7 @@ function getProgressFromTo(from, to, animationDecimal) {
 export default function Menu() {
   const [isOpen, setOpen] = useState(true);
   const [windowOffset, setWindowOffset] = useState();
-  
+
   useEffect(() => {
     if (typeof window !== `undefined`) {
       window.onscroll = function () {
@@ -111,7 +155,7 @@ export default function Menu() {
       const documentHeight = $(document).height();
       const windowHeight = $(window).height();
       const scrollPercent = (scrollTop / (documentHeight - windowHeight)) * 100;
-      growAnimation(document, scrollPercent)
+      growAnimation(document, scrollPercent);
     }
   });
 
