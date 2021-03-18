@@ -18,9 +18,12 @@ jobs:
         run: |
           npm install
           npm run build
+        with: 
+          branch: master
+          folder: src/
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.0
         with:
           branch: master # The branch the action should deploy to.
-          folder: src # The folder the action should deploy.
+          folder: src/ # The folder the action should deploy.
