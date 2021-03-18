@@ -31,7 +31,7 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - run: yarn add ./src
-      - run: yarn build ./src
+      - run: yarn run ./src
       - run: yarn export
 
       - name: Deploy
