@@ -30,7 +30,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - run: yarn
-      - run: yarn run
+      - run: yarn start
       #- run: yarn export
 
       - name: Deploy
