@@ -30,7 +30,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - run: yarn install add ./src
+      - run: yarn add ./src
       - run: yarn build ./src
       - run: yarn export
 
