@@ -1,5 +1,6 @@
 const isProd = process.env.NODE_ENV === 'production'
 
 module.exports = {
-    assetPrefix: isProd?'https://cdn.statically.io/gh/tallysprado/tallysprado.github.io/gh-pages/':''
+  // Use the CDN in production and localhost for development.
+  assetPrefix: isProd ? 'https://cdn.statically.io/gh/tallysprado/tallysprado.github.io/gh-pages/' : '',
 }
